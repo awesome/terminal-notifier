@@ -199,9 +199,10 @@
   NSPipe *pipe = [NSPipe pipe];
   NSFileHandle *fileHandle = [pipe fileHandleForReading];
 
+  // Need to use bash and -l to get the correct value of $PATH
   NSTask *task = [NSTask new];
-  task.launchPath = @"/bin/sh";
-  task.arguments = @[@"-c", command];
+  task.launchPath = @"/bin/bash";
+  task.arguments = @[@"-l", @"-c", command];
   task.standardOutput = pipe;
   task.standardError = pipe;
   [task launch];
